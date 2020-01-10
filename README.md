@@ -1,7 +1,7 @@
 # database_bookstore
 数据库大作业
 运行方式
-打开index.js所在文件夹，运行命令
+打开src中index.js所在文件夹，运行命令
 ```
 node index.js
 ```
