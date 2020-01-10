@@ -1,0 +1,19 @@
+{% if user %}
+
+<li class="nav-item">
+  <a class="nav-link">{{ user }}</a>
+</li>
+<li class="nav-item">
+  <a class="nav-link" href="/account/signout?from={{url}}">Sign out</a>
+</li>
+
+{% else %}
+
+<li class="nav-item">
+  <a class="nav-link" href="/account/signin?from={{url}}">Sign in</a>
+</li>
+<li class="nav-item">
+  <a class="nav-link" href="/account/signup?from={{url}}">Sign up</a>
+</li>
+
+{% endif %}

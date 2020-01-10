@@ -1,0 +1,32 @@
+{% extends "../layout.html" %}
+{% if invalid %}
+{% set title = "Search" %}
+{% else %}
+{% set title = "Search - " + q %}
+{% endif %}
+
+{% block body %}
+{% if invalid %}
+
+<h2 class="m-3">{{ invalid }}</h2>
+
+{% else %}
+
+<h2 class="m-3">Search results for {{q}}:</h2>
+
+<ul class="list-group list-group-flush">
+{% for book in books %}
+  <li class="list-group-item">
+    <h5>{{ book.title }}</h5>
+    <h6 class="ml-3">{{ book.author }}</h6>
+    <a href="/detail/{{book.isbn}}" class="ml-3 stretched-link">View detail...</a>
+  </li>
+{% else %}
+  <li class="list-group-item">
+    <h4>No result</h4>
+  </li>
+{% endfor %}
+</ul>
+
+{% endif %}
+{% endblock %}

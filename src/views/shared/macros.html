@@ -1,0 +1,11 @@
+{% macro form_group(page, field, label, form, invalid, type = "text") %}
+<div class="form-group">
+  <label for="{{page}}-{{field}}">{{label}}</label>
+  <input name="{{field}}" type="{{type}}" id="{{page}}-{{field}}"
+    value="{{ form[field] }}"
+    class="form-control{% if invalid[field] %} is-invalid{% endif %}">
+  <div class="invalid-feedback">
+    {{ invalid[field] }}
+  </div>
+</div>
+{% endmacro %}

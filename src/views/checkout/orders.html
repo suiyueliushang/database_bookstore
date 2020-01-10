@@ -1,0 +1,45 @@
+{% extends "../layout.html" %}
+{% set title = "Orders" %}
+
+{% block body %}
+
+{% for o in orders %}
+<h4 class="mt-4 ml-4">Order <span class="text-monospace">#{{o.id}}</span></h4>
+<p class="ml-4">
+  <span class="font-weight-light font-italic">{{o.datetime}}</span>
+  <a class="ml-4" data-toggle="collapse" href=".orderdetail-{{o.id}}">Detail</a>
+</p>
+<div class="px-4 ml-4 collapse orderdetail-{{o.id}}">
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Title</th>
+      <th scope="col">Count</th>
+    </tr>
+  </thead>
+  <tbody>
+  {% for book in o.items %}
+    <tr>
+      <th scope="row">{{loop.index}}</th>
+      <td><a href="/detail/{{book.isbn}}" class="text-reset">{{book.title}}</a></td>
+      <td>{{book.count}}</td>
+    </tr>
+  {% endfor %}
+    <tr>
+      <th scope="row">Total</th>
+      <td></td>
+      <td>$ {{o.totalprice}}</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+<hr class="my-2"/>
+{% else %}
+
+<h4>No orders</h4>
+
+{% endfor %}
+
+
+{% endblock %}

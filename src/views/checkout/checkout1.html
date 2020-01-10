@@ -1,0 +1,44 @@
+{% extends "../layout.html" %}
+{% set title = "Checkout" %}
+
+{% block body %}
+
+<h3 class="m-3">Order items:</h2>
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Title</th>
+      <th scope="col">Price</th>
+      <th scope="col">Count</th>
+      <th scope="col">Total</th>
+    </tr>
+  </thead>
+  <tbody>
+  {% for book in books %}
+    <tr>
+      <th scope="row">{{loop.index}}</th>
+      <td>{{book.title}}</td>
+      <td>$ {{book.price}}</td>
+      <td>{{book.count}}</td>
+      <td>$ {{book.totalprice}}</td>
+    </tr>
+  {% endfor %}
+    <tr>
+      <th scope="row">Total</th>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>$ {{total}}</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="m-4">
+<form action="/checkout">
+<input type="hidden" name="step" value="2"/>
+<input class="btn btn-primary mr-4 btn-modify" type="submit" value="Continue"/>
+</from>
+</div>
+
+{% endblock %}

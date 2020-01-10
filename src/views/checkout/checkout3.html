@@ -1,0 +1,63 @@
+{% extends "../layout.html" %}
+{% set title = "Checkout" %}
+
+{% block body %}
+
+<h3 class="m-3">Order detail:</h2>
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Title</th>
+      <th scope="col">Price</th>
+      <th scope="col">Count</th>
+      <th scope="col">Total</th>
+    </tr>
+  </thead>
+  <tbody>
+  {% for book in books %}
+    <tr>
+      <th scope="row">{{loop.index}}</th>
+      <td>{{book.title}}</td>
+      <td>$ {{book.price}}</td>
+      <td>{{book.count}}</td>
+      <td>$ {{book.totalprice}}</td>
+    </tr>
+  {% endfor %}
+    <tr>
+      <th scope="row">Total</th>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td>$ {{total}}</td>
+    </tr>
+  </tbody>
+</table>
+
+<div class="m-4">
+<h5><div class="d-inline-block" style="width: 140px">Address:</div> {{address}}</h5>
+<h5><div class="d-inline-block" style="width: 140px">Credit card:</div> {{creditcard}}</h5>
+</div>
+
+<div class="m-4">
+<form class="checkout_form" action="/checkout" method="post">
+<input type="hidden" name="address" value="{{address}}"/>
+<input type="hidden" name="creditcard" value="{{creditcard}}"/>
+<input class="btn btn-secondary mr-4 back_btn" type="submit" value="Back"/>
+<input class="btn btn-primary mr-4" type="submit" value="Submit"/>
+</from>
+</div>
+
+{% endblock %}
+
+
+{% block scripts %}
+<script>
+$(".back_btn").on("click", () => {
+    $(".checkout_form").attr("action", "/checkout")
+    $(".checkout_form").attr("method", false)
+    $(".checkout_form").append('<input type="hidden" name="step" value="2"/>')
+    return true
+})
+</script>
+{% endblock %}

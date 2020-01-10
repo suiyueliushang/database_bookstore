@@ -1,0 +1,15 @@
+{% extends "../layout.html" %}
+{% set title = "Checkout" %}
+
+{% block body %}
+
+<div class="my-4 mx-auto" style="max-width: 700px">
+<form action="/checkout">
+  <input type="hidden" name="step" value="3"/>
+  {{ macros.form_group("chekcout", "address", "Address", form, invalid) }}
+  {{ macros.form_group("chekcout", "creditcard", "Credit Card", form, invalid) }}
+  <button type="submit" class="btn btn-primary m-2">Continue</button>
+</form>
+</div>
+
+{% endblock %}

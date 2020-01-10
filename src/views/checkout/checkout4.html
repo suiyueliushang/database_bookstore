@@ -1,0 +1,22 @@
+{% extends "../layout.html" %}
+{% set title = "Checkout" %}
+
+{% block body %}
+
+<h3 class="m-3 text-center">Order sumbitted successfully!</h2>
+<p class="text-center">Will redirect to <a href="/orders">orders page</a> after <span class="count_down"></span> seconds.</p>
+
+{% endblock %}
+
+{% block scripts %}
+<script>
+var countdown = 5
+setInterval(function() {
+  countdown--
+  $(".count_down").html(countdown)
+  if (countdown <= 0)
+    window.location.replace("/orders");
+}, 1000)
+$(".count_down").html(countdown)
+</script>
+{% endblock %}

@@ -1,0 +1,82 @@
+{% extends "../layout.html" %}
+{% set title = book.title %}
+
+{% block body %}
+
+<div class="m-4">
+<h2>{{ book.title }}</h2>
+<h4>{{ book.author }}</h4>
+<hr class="my-4"/>
+<p style="text-indent: 2em">{{ book.description }}</p>
+<hr class="my-4"/>
+<div class="m-2 lead">Price: $ {{ book.price }}</div>
+<div class="m-2 font-weight-light">ISBN: {{ book.isbn }}</div>
+<form class="d-flex mt-4" action="/cart/add" method="post">
+<div class="input-group" style="width: 130px">
+  <div class="input-group-prepend">
+    <button class="btn btn-outline-secondary" type="button">-</button>
+  </div>
+  <input type="hidden" name="isbn" value="{{book.isbn}}"/>
+  <input class="form-control text-center" type="number" name="count" value="1"/>
+  <div class="input-group-append">
+    <button class="btn btn-outline-secondary" type="button">+</button>
+  </div>
+</div>
+<div>
+  <input class="btn btn-primary mx-3" type="submit" value="Add to cart"/>
+</div>
+</form>
+<p class="m-2 font-italic">
+{% if book.count < 0 %}
+Usually ships within 4 weeks
+{% elif book.count < 5 %}
+Usually ships within 1 week
+{% elif book.count < 20 %}
+Usually ships within 2 to 3 days
+{% else %}
+Usually ships within 1 to 2 days
+{% endif %}
+</p>
+</div>
+
+{% endblock %}
+
+{% block scripts %}
+<script>
+$(".input-group").each(function () {
+    var group = $(this)
+    var input = group.find('input.text-center')
+    var less = group.find(".input-group-prepend>.btn")
+    var more = group.find(".input-group-append>.btn")
+    var value = -1
+    function changeValue(val) {
+        if (val === value) return
+        else if (isNaN(val) || val < 1) value = 1
+        else if (val > 100) value = 100
+        else value = val
+        if (value === 1) {
+            less.attr("disabled", true)
+        } else {
+            less.attr("disabled", false)
+        }
+        if (value === 100) {
+            more.attr("disabled", true)
+        } else {
+            more.attr("disabled", false)
+        }
+        input.val(value)
+    }
+    input.on("input", function() {
+        var val = parseInt(input.val())
+        changeValue(val)
+    })
+    less.on("click", function() {
+        changeValue(value - 1)
+    })
+    more.on("click", function() {
+        changeValue(value + 1)
+    })
+    changeValue(parseInt(input.val()))
+})
+</script>
+{% endblock %}

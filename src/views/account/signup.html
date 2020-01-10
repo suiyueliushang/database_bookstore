@@ -1,0 +1,23 @@
+{% extends "../layout.html" %}
+{% set title = "Sign up" %}
+
+{% block body %}
+
+<div class="card mx-auto mt-5" style="max-width: 400px">
+<div class="card-body">
+<h2 class="card-title">Sign up</h2>
+<form action="/account/signup?from={{url}}" method="post">
+  {{ macros.form_group("signup", "username", "Username", form, invalid) }}
+  {{ macros.form_group("signup", "password", "Password", form, invalid, "password") }}
+  {{ macros.form_group("signup", "repeat_password", "Repeat password", form, invalid, "password") }}
+  {% if failed %}
+  <div class="alert alert-danger">
+    {{ failed }}
+  </div>
+  {% endif %}
+  <button type="submit" class="btn btn-primary btn-block">Sign up</button>
+</form>
+</div>
+</div>
+
+{% endblock %}

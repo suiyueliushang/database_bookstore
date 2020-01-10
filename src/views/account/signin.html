@@ -1,0 +1,22 @@
+{% extends "../layout.html" %}
+{% set title = "Sign in" %}
+
+{% block body %}
+
+<div class="card mx-auto mt-5" style="max-width: 400px">
+<div class="card-body">
+<h2 class="card-title">Sign in</h2>
+<form action="/account/signin?from={{url}}" method="post">
+  {{ macros.form_group("signin", "username", "Username", form, invalid) }}
+  {{ macros.form_group("signin", "password", "Password", form, invalid, "password") }}
+  {% if failed %}
+  <div class="alert alert-danger">
+    {{ failed }}
+  </div>
+  {% endif %}
+  <button type="submit" class="btn btn-primary btn-block">Sign in</button>
+</form>
+</div>
+</div>
+
+{% endblock %}
